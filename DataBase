@@ -1,0 +1,33 @@
+import psycopg2
+
+conn = psycopg2.connect(database="STOCK_INDEX", user="postgres", password="123456", host="127.0.0.1", port="23333")
+cursor = conn.cursor()
+# cursor.execute('''CREATE TABLE COMPANY
+#        (ID INT      NOT NULL,
+#        NAME           TEXT    NOT NULL,
+#        AGE            INT     NOT NULL,
+#        ADDRESS        CHAR(50),
+#        SALARY         REAL);''')
+# conn.commit()
+# cursor.execute("INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) \
+#       VALUES (1, 'Paul', 32, 'California', 20000.00 )");
+#
+# cursor.execute("INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) \
+#       VALUES (2, 'Allen', 25, 'Texas', 15000.00 )");
+#
+# cursor.execute("INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) \
+#       VALUES (3, 'Teddy', 23, 'Norway', 20000.00 )");
+#
+# cursor.execute("INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) \
+#       VALUES (4, 'Mark', 25, 'Rich-Mond ', 65000.00 )");
+#
+# conn.commit()
+cursor.execute("SELECT id, %s, address, salary  from COMPANY"%('name'))
+rows = cursor.fetchall()
+for row in rows:
+   print "ID = ", row[0]
+   print "NAME = ", row[1]
+   print "ADDRESS = ", row[2]
+   print "SALARY = ", row[3], "\n"
+cursor.close()
+conn.close()
